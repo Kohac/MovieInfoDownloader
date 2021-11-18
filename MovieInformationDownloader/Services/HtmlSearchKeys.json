@@ -1,0 +1,100 @@
+{
+  "HtmlPairKeys": [
+    {
+      "Id": "1",
+      "Name": "Name",
+      "StartValue": "<h1 itemprop=\"name\">",
+      "EndValue": "</h1>"
+    },
+    {
+      "Id": "2",
+      "Name": "Rating",
+      "StartValue": "<div class=\"rating-average\">",
+      "EndValue": "</div>"
+    },
+    {
+      "Id": "3",
+      "Name": "Genres",
+      "StartValue": "<div class=\"genres\">",
+      "EndValue": "</div>"
+    },
+    {
+      "Id": "4",
+      "Name": "Origin",
+      "StartValue": "<div class=\"origin\">",
+      "EndValue": "</div>"
+    },
+    {
+      "Id": "5",
+      "Name": "Director",
+      "StartValue": "<span itemprop=\"director\">",
+      "EndValue": "</span>"
+    },
+    {
+      "Id": "6",
+      "Name": "Template",
+      "StartValue": "<h4>Pøedloha: </h4>",
+      "EndValue": "</span>"
+    },
+    {
+      "Id": "7",
+      "Name": "Scenario",
+      "StartValue": "<h4>Scénáø: </h4>",
+      "EndValue": "</span>"
+    },
+    {
+      "Id": "8",
+      "Name": "Camera",
+      "StartValue": "<h4>Kamera: </h4>",
+      "EndValue": "</span>"
+    },
+    {
+      "Id": "9",
+      "Name": "Audio",
+      "StartValue": "<h4>Hudba: </h4>",
+      "EndValue": "</span>"
+    },
+    {
+      "Id": "10",
+      "Name": "Actors",
+      "StartValue": "<h4>Hrají: </h4>",
+      "EndValue": "</span>"
+    },
+    {
+      "Id": "11",
+      "Name": "Content",
+      "StartValue": "<div class=\"plot-full hidden\">",
+      "EndValue": "</div>"
+    },
+    {
+      "Id": "12",
+      "Name": "OtherFilmNames",
+      "StartValue": "<ul class=\"film-names\">",
+      "EndValue": "</ul>"
+    },
+    {
+      "Id": "14",
+      "Name": "AgeWarning",
+      "StartValue": "<div class=\"age-restriction\">",
+      "EndValue": "</div>"
+    },
+    {
+      "Id": "14",
+      "Name": "CinemaPremiere",
+      "StartValue": "<section class=\"box box-premieres\">",
+      "EndValue": "</section>"
+    },
+    {
+      "Id": "15",
+      "Name": "RelatedMovies",
+      "StartValue": "<section class=\"box\">",
+      "EndValue": "</section>"
+    },
+    {
+      "Id": "16",
+      "Name": "Tags",
+      "StartValue": "<section class=\"box\">",
+      "EndValue": "</section>"
+    }
+  ]
+}
