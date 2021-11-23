@@ -10,6 +10,7 @@ public abstract class AbstractMovie
 {
     public abstract long GetMovieId();
     public abstract void InsertMovie(Movie movie);
+    public abstract void UpdateMovie(Movie movie);
     public abstract bool Save();
 
 }

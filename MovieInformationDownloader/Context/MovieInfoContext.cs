@@ -120,7 +120,7 @@ namespace MovieInformationDownloader.Context
             {
                 entity.ToTable("Movie");
 
-                entity.Property(e => e.Id).ValueGeneratedNever();
+                entity.Property(e => e.MovieId).ValueGeneratedNever();
 
                 entity.Property(e => e.AgeWarning).HasMaxLength(200);
 
@@ -161,8 +161,6 @@ namespace MovieInformationDownloader.Context
             modelBuilder.Entity<RelatedMovie>(entity =>
             {
                 entity.ToTable("RelatedMovie");
-
-                entity.Property(e => e.Id).ValueGeneratedNever();
 
                 entity.HasOne(d => d.Movie)
                     .WithMany(p => p.RelatedMovies)

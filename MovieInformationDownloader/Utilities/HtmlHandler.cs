@@ -174,4 +174,68 @@ public class HtmlHandler
         pageContent = pageContent.Remove(substringFrom - startValue.Length, substringTo + endValue.Length);
         return relatedMovies;
     }
+    public PersonDto GetPersonData(ref string pageContent, string startValue, string endValue, PersonDto person)
+    {
+        if (!pageContent.Contains(startValue))
+        {
+            return null;
+        }
+        int startSearchCount = pageContent.IndexOf(startValue);
+        int endSearchCount = pageContent.IndexOf(endValue, startSearchCount);
+        int substringFrom = startSearchCount + startValue.Length;
+        int substringTo = endSearchCount - substringFrom;
+        string result = pageContent.Substring(substringFrom, substringTo);
+
+        int startSearchName = result.IndexOf("<h1>");
+        int endSearchName = result.IndexOf("</h1>", startSearchName);
+        int substringFromName = startSearchName + "<h1>".Length;
+        int substringToName = endSearchName - substringFromName;
+        string name = result.Substring(substringFromName, substringToName);
+        string[] nameSplitted = name.Split(" ");
+        person.Forename = nameSplitted[0];
+        person.Surname = nameSplitted[1];
+
+        int startSearchDateOfBirth = result.IndexOf("<p>");
+        int endSearchNameDateOfBirth = result.IndexOf("(", startSearchDateOfBirth);
+        int substringFromDateOfBirth = startSearchDateOfBirth + "<p>".Length;
+        int substringToDateOfBirth = endSearchNameDateOfBirth - substringFromDateOfBirth;
+        string dateOfBirthString = result.Substring(substringFromDateOfBirth, substringToDateOfBirth).ReplaceNewLineCharacters().ReplaceTabCharacters();
+        DateTime dateOfBirth = new();
+        DateTime.TryParse(dateOfBirthString, out dateOfBirth);
+        person.DateOfBirth = dateOfBirth;
+
+        int startSearchAddressData = result.IndexOf("<br>");
+        int endSearchNameAddressData = result.IndexOf("</p>", startSearchAddressData);
+        int substringFromAddressData = startSearchAddressData + "<br>".Length;
+        int substringToAddressData = endSearchNameAddressData - substringFromAddressData;
+        string addressData = result.Substring(substringFromAddressData, substringToAddressData).ReplaceNewLineCharacters().ReplaceTabCharacters();
+        string[] addressDataSplitted = addressData.Split(",");
+
+        person.City = addressDataSplitted[0].ReplaceStarterSpace() ?? null;
+        person.Country = addressDataSplitted[1].ReplaceStarterSpace() ?? null;
+        person.Continent = addressDataSplitted[2].ReplaceStarterSpace() ?? null;
+
+        return person;
+    }
+
+    public string GetPersonBiography(ref string pageContent, string startValue, string endValue)
+    {
+        if (!pageContent.Contains(startValue))
+        {
+            return null;
+        }
+        int startSearchCount = pageContent.IndexOf(startValue);
+        int endSearchCount = pageContent.IndexOf(endValue, startSearchCount);
+        int substringFrom = startSearchCount + startValue.Length;
+        int substringTo = endSearchCount - substringFrom;
+        string result = pageContent.Substring(substringFrom, substringTo);
+
+        int startSearchBiography = result.IndexOf("<p>");
+        int endSearchBiography = result.IndexOf("</p>", startSearchBiography);
+        int substringFromBiography = startSearchBiography + "<p>".Length;
+        int substringToBiography = endSearchBiography - substringFromBiography;
+        string biography = result.Substring(substringFromBiography, substringToBiography).ReplaceTabCharacters().ReplaceNewLineCharacters();
+
+        return biography;
+    }
 }

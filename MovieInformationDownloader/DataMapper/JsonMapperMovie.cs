@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace MovieInformationDownloader.DataMapper
 {
-    public class JsonMapper
+    public class JsonMapperMovie
     {
-        public ICollection<HtmlSearchDto> HtmlPairKeys { get; set; }
+        public ICollection<HtmlSearchMovieDto> HtmlPairKeys { get; set; }
     }
 }

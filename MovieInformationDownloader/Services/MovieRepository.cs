@@ -1,4 +1,5 @@
 ﻿using MovieInformationDownloader.Context;
+using MovieInformationDownloader.Entities;
 
 namespace MovieInformationDownloader.Services;
 
@@ -10,7 +11,7 @@ public class MovieRepository : AbstractMovie
     {
         try
         {
-            var result = _context.Movies.Max(x => x.Id) + 1;
+            var result = _context.Movies.Max(x => x.MovieId) + 1;
             return result;
         }
         catch (Exception ex)
@@ -21,7 +22,7 @@ public class MovieRepository : AbstractMovie
     }
 
     public override void InsertMovie(Movie movie)
-    { 
+    {
         try
         {
             _context.Movies.Add(movie);
@@ -36,5 +37,18 @@ public class MovieRepository : AbstractMovie
     public override bool Save()
     {
         return _context.SaveChanges() == 1 ? true : false;
+    }
+
+    public override void UpdateMovie(Movie movie)
+    {
+        try
+        {
+            _context.Movies.Update(movie);
+            Save();
+        }
+        catch (Exception ex)
+        {
+            log.Error($"Error: {ex.Message} \n\t {ex.StackTrace} \n\t {ex.Source}");
+        }
     }
 }

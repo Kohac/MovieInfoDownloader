@@ -20,7 +20,7 @@ namespace MovieInformationDownloader.Entities
             Templates = new HashSet<Template>();
         }
 
-        public long Id { get; set; }
+        public long MovieId { get; set; }
         public string Name { get; set; }
         public string Rating { get; set; }
         public string CountryOfOrigin { get; set; }

@@ -8,7 +8,7 @@ namespace MovieInformationDownloader.Utilities
 {
     public class HtmlKeysEnumerator
     {
-        public  enum HtmlKeys
+        public enum HtmlMovieKeys
         {
             Name,
             Rating,
@@ -26,6 +26,11 @@ namespace MovieInformationDownloader.Utilities
             AgeWarning,
             RelatedMovies,
             Tags
+        }
+        public enum HtmlPersonKeys
+        {
+            PersonalData,
+            Biography
         }
     }
 }

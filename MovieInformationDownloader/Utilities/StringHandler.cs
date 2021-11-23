@@ -36,7 +36,7 @@ public static class StringHandler
         {
             returnedString = returnedString.Replace("(více)", "");
         }
-        if (inputedString.Contains("(více)"))
+        if (inputedString.Contains("(méně)"))
         {
             returnedString = returnedString.Replace("(méně)", "");
         }

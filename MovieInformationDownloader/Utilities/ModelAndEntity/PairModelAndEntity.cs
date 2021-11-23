@@ -15,7 +15,7 @@ internal class PairModelAndEntity
         List<CinemaPremiere> cinemaPremieres = new();
         List<RelatedMovie> relatedMovies = new();
         //Movie entity filling
-        movieEntity.Id = modelMovie.MovieId;
+        movieEntity.MovieId = modelMovie.MovieId;
         movieEntity.Name = modelMovie.Name;
         movieEntity.Rating = modelMovie.Rating;
         movieEntity.CountryOfOrigin = modelMovie.CountryOfOrigin;
@@ -119,7 +119,7 @@ internal class PairModelAndEntity
         {
             foreach (var relatedMovie in modelMovie.RelatedMoviesId)
             {
-                relatedMovies.Add(new RelatedMovie() { RelatedMovieId = relatedMovie ?? 0, Movie = movieEntity});
+                relatedMovies.Add(new RelatedMovie() { RelatedMovieId = relatedMovie ?? 0, Movie = movieEntity });
             }
             movieEntity.RelatedMovies = relatedMovies;
         }

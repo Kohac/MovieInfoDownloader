@@ -4,21 +4,26 @@ namespace MovieInformationDownloader;
 class Program
 {
     public static readonly ILog log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
-    //private static readonly DbHandler _dbHandler = new();
     private static readonly MovieRepository _movieRepository = new();
     private static readonly PairModelAndEntity pairModelAndEntity = new();
     static void Main(string[] args)
     {
+        ConfigureLogs();
+        log.Info("Application Start");
+        //Person Info downloader
+
+
+        //Movie Info downloader
         //for (int i = 0; i < 20; i++)
         //{
-            ConfigureLogs();
-            log.Info("Application Start");
-            long actualMovieId = _movieRepository.GetMovieId();
-            MovieDto movieDto = DownloadAndReturnMovieInfo(actualMovieId);
-            Movie movieEntity = pairModelAndEntity.GetMovieEntityFromModel(movieDto);
-            _movieRepository.InsertMovie(movieEntity);
-            log.Info("Application End");
+        //    long actualMovieId = 1 + i;//_movieRepository.GetMovieId();
+        //    Console.WriteLine($"Application starting with movie id: {actualMovieId}");
+        //    MovieDto movieDto = DownloadAndReturnMovieInfo(actualMovieId);
+        //    Movie movieEntity = pairModelAndEntity.GetMovieEntityFromModel(movieDto);
+        //    _movieRepository.InsertMovie(movieEntity);
+        //    Console.WriteLine($"Movie with id: {actualMovieId} was inserted to DB!");
         //}
+        log.Info("Application End");
     }
     private static void ConfigureLogs()
     {
@@ -34,7 +39,7 @@ class Program
         {
             Encoding encoding = CodePagesEncodingProvider.Instance.GetEncoding("Windows-1250");
             var jsonConfigurationFile = File.ReadAllText(AppContext.BaseDirectory + "/Services/HtmlSearchKeys.json", encoding);
-            var keys = JsonConvert.DeserializeObject<JsonMapper>(jsonConfigurationFile);
+            var keys = JsonConvert.DeserializeObject<JsonMapperMovie>(jsonConfigurationFile);
             string pageContent = webDownloader.DownloadPageContentHtml(movieId);
             MovieDto movieInfo = webHandler.GetMovieInfo(movieId, pageContent, keys);
             return movieInfo;

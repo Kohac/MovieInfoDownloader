@@ -1,0 +1,16 @@
+{
+  "HtmlPairKeys": [
+    {
+      "Id": "1",
+      "Name": "PersonalData",
+      "StartValue": "<div class=\"creator-profile-content\">",
+      "EndValue": "</div>"
+    },
+    {
+      "Id": "2",
+      "Name": "Biography",
+      "StartValue": "<div class=\"article-content article-content-justify\">",
+      "EndValue": "</div>"
+    }
+  ]
+}

@@ -1,66 +1,73 @@
 ﻿namespace MovieInformationDownloader.services;
 public class WebHandler
 {
-    public MovieDto GetMovieInfo(long movieId, string pageContent, JsonMapper htmlKeys)
+    public readonly HtmlHandler htmlHandler = new ();
+    public MovieDto GetMovieInfo(long movieId, string pageContent, JsonMapperMovie htmlKeys)
     {
         MovieDto movie = new MovieDto();
-        HtmlHandler htmlHandler = new HtmlHandler();
         movie.MovieId = movieId;
         foreach (var key in htmlKeys.HtmlPairKeys)
         {
             switch (key.Name)
             {
-                case HtmlKeysEnumerator.HtmlKeys.Name:
+                case HtmlKeysEnumerator.HtmlMovieKeys.Name:
                     movie.Name = htmlHandler.SubstringHtmlElementAndClearTextFormatters(ref pageContent, key.StartValue, key.EndValue);
                     break;
-                case HtmlKeysEnumerator.HtmlKeys.Rating:
+                case HtmlKeysEnumerator.HtmlMovieKeys.Rating:
                     movie.Rating = htmlHandler.SubstringHtmlElementAndClearTextFormatters(ref pageContent, key.StartValue, key.EndValue);
                     break;
-                case HtmlKeysEnumerator.HtmlKeys.Genres:
+                case HtmlKeysEnumerator.HtmlMovieKeys.Genres:
                     string genres = htmlHandler.SubstringHtmlElementAndClearTextFormatters(ref pageContent, key.StartValue, key.EndValue);
                     movie.Genres = genres.Split("/");
                     break;
-                case HtmlKeysEnumerator.HtmlKeys.Origin:
+                case HtmlKeysEnumerator.HtmlMovieKeys.Origin:
                     string origin = htmlHandler.SubstringHtmlElementClearTextFormattersAndClearHtmlStaff(ref pageContent, key.StartValue, key.EndValue);
                     string[] originSplit = origin.Split(",");
                     movie.CountryOfOrigin = originSplit[0];
                     movie.YearCreated = originSplit[1];
                     movie.Duration = originSplit[2];
                     break;
-                case HtmlKeysEnumerator.HtmlKeys.Director:
+                case HtmlKeysEnumerator.HtmlMovieKeys.Director:
                     movie.Director = htmlHandler.SubstringDirectorIds(ref pageContent, key.StartValue, key.EndValue);
                     break;
-                case HtmlKeysEnumerator.HtmlKeys.Template:
+                case HtmlKeysEnumerator.HtmlMovieKeys.Template:
                     movie.Template = htmlHandler.SubstringDirectorIds(ref pageContent, key.StartValue, key.EndValue);
                     break;
-                case HtmlKeysEnumerator.HtmlKeys.Scenario:
+                case HtmlKeysEnumerator.HtmlMovieKeys.Scenario:
                     movie.Scenario = htmlHandler.SubstringDirectorIds(ref pageContent, key.StartValue, key.EndValue);
                     break;
-                case HtmlKeysEnumerator.HtmlKeys.Camera:
+                case HtmlKeysEnumerator.HtmlMovieKeys.Camera:
                     movie.Camera = htmlHandler.SubstringDirectorIds(ref pageContent, key.StartValue, key.EndValue);
                     break;
-                case HtmlKeysEnumerator.HtmlKeys.Audio:
+                case HtmlKeysEnumerator.HtmlMovieKeys.Audio:
                     movie.Audio = htmlHandler.SubstringDirectorIds(ref pageContent, key.StartValue, key.EndValue);
                     break;
-                case HtmlKeysEnumerator.HtmlKeys.Actors:
+                case HtmlKeysEnumerator.HtmlMovieKeys.Actors:
                     movie.Actors = htmlHandler.SubstringDirectorIds(ref pageContent, key.StartValue, key.EndValue);
                     break;
-                case HtmlKeysEnumerator.HtmlKeys.Content:
+                case HtmlKeysEnumerator.HtmlMovieKeys.Content:
                     movie.Content = htmlHandler.SubstringHtmlElementClearTextFormattersAndClearHtmlStaff(ref pageContent, key.StartValue, key.EndValue);
+                    if (movie.Content is null)
+                    {
+                        movie.Content = htmlHandler.SubstringHtmlElementClearTextFormattersAndClearHtmlStaff(
+                                                                                                                ref pageContent, 
+                                                                                                                "<div class=\"plot-full\">", 
+                                                                                                                "</div>");
+                    }
                     break;
-                case HtmlKeysEnumerator.HtmlKeys.OtherFilmNames:
+                case HtmlKeysEnumerator.HtmlMovieKeys.OtherFilmNames:
                     movie.OtherFilmNames = htmlHandler.SubstringOtherFilmNames(ref pageContent, key.StartValue, key.EndValue);
                     break;
-                case HtmlKeysEnumerator.HtmlKeys.CinemaPremiere:
+                case HtmlKeysEnumerator.HtmlMovieKeys.CinemaPremiere:
                     movie.CinemaPremiere = htmlHandler.SubstringCinemaPremieres(ref pageContent, key.StartValue, key.EndValue);
                     break;
-                case HtmlKeysEnumerator.HtmlKeys.AgeWarning:
+                case HtmlKeysEnumerator.HtmlMovieKeys.AgeWarning:
                     movie.AgeWarning = htmlHandler.SubstringHtmlElementClearTextFormattersAndClearHtmlStaff(ref pageContent, key.StartValue, key.EndValue);
                     break;
-                case HtmlKeysEnumerator.HtmlKeys.RelatedMovies:
+                case HtmlKeysEnumerator.HtmlMovieKeys.RelatedMovies:
                     movie.RelatedMoviesId = htmlHandler.SubstringRelatedMovies(ref pageContent, key.StartValue, key.EndValue);
                     break;
-                case HtmlKeysEnumerator.HtmlKeys.Tags:
+                case HtmlKeysEnumerator.HtmlMovieKeys.Tags:
                     string tags = htmlHandler.SubstringHtmlElementClearTextFormattersAndClearHtmlStaff(ref pageContent, key.StartValue, key.EndValue);
                     if (!string.IsNullOrEmpty(tags))
                     {
@@ -72,5 +79,23 @@ public class WebHandler
             }
         }
         return movie;
+    }
+    public PersonDto GetPersonInfo(long personId, string pageContent, JsonMapperPerson htmlKeys)
+    {
+        PersonDto person = new();
+        person.PersonId = personId;
+        foreach (var key in htmlKeys.HtmlPairPersonKeys)
+        {
+            switch (key.Name)
+            {
+                case HtmlKeysEnumerator.HtmlPersonKeys.PersonalData:
+                    var personalData = htmlHandler.GetPersonData(ref pageContent, key.StartValue, key.EndValue, person);
+                    break;
+                case HtmlKeysEnumerator.HtmlPersonKeys.Biography:
+                    person.Biography = htmlHandler.SubstringHtmlElementAndClearTextFormatters(ref pageContent, key.StartValue, key.EndValue);
+                    break;
+            }
+        }
+        return new();
     }
 }
