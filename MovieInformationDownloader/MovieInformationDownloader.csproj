@@ -37,6 +37,9 @@
     <None Update="Services\HtmlSearchMovieKeys.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="Services\HtmlSearchPersonKeys.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>

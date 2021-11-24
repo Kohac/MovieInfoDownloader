@@ -125,4 +125,18 @@ internal class PairModelAndEntity
         }
         return movieEntity;
     }
+    public Person GetPersonEntityFromModel(PersonDto personDto)
+    {
+        Person person = new() {
+            PersonId = personDto.PersonId,
+            Forename = personDto.Forename ?? null,
+            Surname = personDto.Surname ?? null,
+            DateOfBirth = personDto.DateOfBirth ?? null,
+            City = personDto.City ?? null,
+            Country = personDto.Country ?? null,
+            Continent = personDto.Continent ?? null,
+            Biography = personDto.Biography ?? null
+        };
+        return person;
+    }
 }

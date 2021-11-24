@@ -1,5 +1,5 @@
 {
-  "HtmlPairKeys": [
+  "HtmlPairPersonKeys": [
     {
       "Id": "1",
       "Name": "PersonalData",
@@ -10,7 +10,7 @@
       "Id": "2",
       "Name": "Biography",
       "StartValue": "<div class=\"article-content article-content-justify\">",
-      "EndValue": "</div>"
+      "EndValue": "<p class=\"signature\">"
     }
   ]
 }

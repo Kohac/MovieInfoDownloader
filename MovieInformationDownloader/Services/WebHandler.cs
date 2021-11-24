@@ -92,10 +92,10 @@ public class WebHandler
                     var personalData = htmlHandler.GetPersonData(ref pageContent, key.StartValue, key.EndValue, person);
                     break;
                 case HtmlKeysEnumerator.HtmlPersonKeys.Biography:
-                    person.Biography = htmlHandler.SubstringHtmlElementAndClearTextFormatters(ref pageContent, key.StartValue, key.EndValue);
+                    person.Biography = htmlHandler.GetPersonBiography(ref pageContent, key.StartValue, key.EndValue);
                     break;
             }
         }
-        return new();
+        return person;
     }
 }

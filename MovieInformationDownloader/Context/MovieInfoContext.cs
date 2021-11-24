@@ -26,6 +26,7 @@ namespace MovieInformationDownloader.Context
         public virtual DbSet<Genre> Genres { get; set; }
         public virtual DbSet<Movie> Movies { get; set; }
         public virtual DbSet<OtherMovieName> OtherMovieNames { get; set; }
+        public virtual DbSet<Person> People { get; set; }
         public virtual DbSet<RelatedMovie> RelatedMovies { get; set; }
         public virtual DbSet<Scenario> Scenarios { get; set; }
         public virtual DbSet<Tag> Tags { get; set; }
@@ -156,6 +157,31 @@ namespace MovieInformationDownloader.Context
                     .HasForeignKey(d => d.MovieId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_RelativeMovieName_Movie");
+            });
+
+            modelBuilder.Entity<Person>(entity =>
+            {
+                entity.HasKey(e => e.PersonId);
+
+                entity.ToTable("Person");
+
+                entity.Property(e => e.PersonId).ValueGeneratedNever();
+
+                entity.Property(e => e.City).HasMaxLength(100);
+
+                entity.Property(e => e.Continent).HasMaxLength(100);
+
+                entity.Property(e => e.Country).HasMaxLength(100);
+
+                entity.Property(e => e.DateOfBirth).HasColumnType("date");
+
+                entity.Property(e => e.Forename).HasMaxLength(100);
+
+                //entity.Property(e => e.Id)
+                //    .ValueGeneratedOnAdd()
+                //    .HasColumnName("id");
+
+                entity.Property(e => e.Surname).HasMaxLength(100);
             });
 
             modelBuilder.Entity<RelatedMovie>(entity =>
