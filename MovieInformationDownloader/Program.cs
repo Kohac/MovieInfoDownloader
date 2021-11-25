@@ -9,17 +9,12 @@ class Program
     private static readonly PairModelAndEntity _pairModelAndEntity = new();
     static void Main(string[] args)
     {
-        //for (int p = 0; p < 20; p++)
-        //{
-        //    //long personId = _personRepository.GetPersonId();
-        //    long personId = 1 + p;
-        //    Console.WriteLine($"Application starting with person id: {personId}");
-        //    PersonDto personDto = DownloadAndReturnPersonInfo(personId);
-        //    Person person = _pairModelAndEntity.GetPersonEntityFromModel(personDto);
-        //    //_personRepository.InsertPerson(person);
-        //    _personRepository.UpdatePerson(person);
-        //    Console.WriteLine($"Person with id: {personId} was inserted to DB!");
-        //}
+        //long actualMovieId = 6014;
+        //Console.WriteLine($"Application starting with movie id: {actualMovieId}");
+        //MovieDto movieDto = DownloadAndReturnMovieInfo(ref actualMovieId);
+        //Movie movieEntity = _pairModelAndEntity.GetMovieEntityFromModel(movieDto);
+        //_movieRepository.InsertMovie(movieEntity);
+        //Console.WriteLine($"Movie with id: {actualMovieId} was inserted to DB!");
         RunApp(args);
     }
     private static void RunApp(string[] args)
@@ -50,11 +45,11 @@ class Program
             //Movie Info downloader
             if (args[0] == "-movie")
             {
-                for (int i = 0; i < args.Length; i++)
+                for (int i = 0; i < int.Parse(args[1]); i++)
                 {
                     long actualMovieId = _movieRepository.GetMovieId();
                     Console.WriteLine($"Application starting with movie id: {actualMovieId}");
-                    MovieDto movieDto = DownloadAndReturnMovieInfo(actualMovieId);
+                    MovieDto movieDto = DownloadAndReturnMovieInfo(ref actualMovieId);
                     Movie movieEntity = _pairModelAndEntity.GetMovieEntityFromModel(movieDto);
                     _movieRepository.InsertMovie(movieEntity);
                     Console.WriteLine($"Movie with id: {actualMovieId} was inserted to DB!");
@@ -69,7 +64,7 @@ class Program
         string fullPath = Path.Combine(directory, "log4net.config");
         XmlConfigurator.Configure(new FileInfo(fullPath));
     }
-    private static MovieDto DownloadAndReturnMovieInfo(long movieId)
+    private static MovieDto DownloadAndReturnMovieInfo(ref long movieId)
     {
         WebDownloader webDownloader = new WebDownloader();
         WebHandler webHandler = new WebHandler();
@@ -79,6 +74,20 @@ class Program
             var jsonConfigurationFile = File.ReadAllText(AppContext.BaseDirectory + "/Services/HtmlSearchMovieKeys.json", encoding);
             var keys = JsonConvert.DeserializeObject<JsonMapperMovie>(jsonConfigurationFile);
             string pageContent = webDownloader.DownloadPageContentMovieHtml(movieId);
+            while (pageContent == null)
+            {
+                long originalMovieId = movieId;
+                Console.WriteLine($"Movie with id: {movieId} doesn't exist i am trying to find +1.");
+                log.Debug($"Movie with id: {movieId} doesn't exist i am trying to find +1.");
+                movieId = movieId + 1;
+                pageContent = webDownloader.DownloadPageContentMovieHtml(movieId);
+                if (originalMovieId + 10 == movieId)
+                {
+                    pageContent = "Just secure from internal loop";
+                    log.Info("No more movies to download available!");
+                    Environment.Exit(0);
+                }
+            }
             MovieDto movieInfo = webHandler.GetMovieInfo(movieId, pageContent, keys);
             return movieInfo;
         }

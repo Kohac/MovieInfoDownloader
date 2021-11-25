@@ -108,6 +108,10 @@ public class HtmlHandler
         int substringTo = endSearchCount - substringFrom;
         string result = pageContent.Substring(substringFrom, substringTo).ReplaceTabCharacters().ReplaceNewLineCharacters();
         //find unordered list of cinema premieres
+        if (!result.Contains("<ul>"))
+        {
+            return null;
+        }
         int startSearchCountUl = result.IndexOf("<ul>");
         int endSearchCountUl = result.IndexOf("</ul>", startSearchCountUl);
         int substringFromUl = startSearchCountUl + "<ul>".Length;
@@ -190,7 +194,7 @@ public class HtmlHandler
             int startSearchCount = pageContent.IndexOf(startValue);
             int endSearchCount = pageContent.IndexOf(endValue, startSearchCount);
             int substringFrom = startSearchCount + startValue.Length;
-            int substringTo = endSearchCount - substringFrom;
+            int substringTo = endSearchCount - substringFrom + endValue.Length;
             string result = pageContent.Substring(substringFrom, substringTo);
 
             int startSearchName = result.IndexOf("<h1>");
@@ -203,7 +207,14 @@ public class HtmlHandler
             person.Surname = nameSplitted[1].ReplaceNewLineCharacters().ReplaceTabCharacters();
 
             int startSearchDateOfBirth = result.IndexOf("<p>");
-            int endSearchNameDateOfBirth = result.IndexOf("(", startSearchDateOfBirth) == -1 ? result.IndexOf("<br>", startSearchDateOfBirth) : result.IndexOf("(", startSearchDateOfBirth);
+            int endSearchNameDateOfBirth = result.IndexOf("(", startSearchDateOfBirth) == -1 
+                ? result.IndexOf("<br>", startSearchDateOfBirth) 
+                : result.IndexOf("(", startSearchDateOfBirth);
+            //secure if person died
+            //if (startSearchDateOfBirth + 100 >= endSearchNameDateOfBirth)
+            //{
+            //    endSearchNameDateOfBirth = result.IndexOf("<br>", startSearchDateOfBirth);
+            //}
             int substringFromDateOfBirth = startSearchDateOfBirth + "<p>".Length;
             int substringToDateOfBirth = endSearchNameDateOfBirth - substringFromDateOfBirth;
             if (endSearchNameDateOfBirth != -1)

@@ -23,9 +23,21 @@ public class WebHandler
                 case HtmlKeysEnumerator.HtmlMovieKeys.Origin:
                     string origin = htmlHandler.SubstringHtmlElementClearTextFormattersAndClearHtmlStaff(ref pageContent, key.StartValue, key.EndValue);
                     string[] originSplit = origin.Split(",");
-                    movie.CountryOfOrigin = originSplit[0];
-                    movie.YearCreated = originSplit[1];
-                    movie.Duration = originSplit[2];
+                    if (originSplit.Length == 1)
+                    {
+                        movie.CountryOfOrigin = originSplit[0];
+                    }
+                    else if (originSplit.Length == 2)
+                    {
+                        movie.CountryOfOrigin = originSplit[0];
+                        movie.YearCreated = originSplit[1];
+                    }
+                    else if (originSplit.Length == 3)
+                    {
+                        movie.CountryOfOrigin = originSplit[0];
+                        movie.YearCreated = originSplit[1];
+                        movie.Duration = originSplit[2];
+                    }
                     break;
                 case HtmlKeysEnumerator.HtmlMovieKeys.Director:
                     movie.Director = htmlHandler.SubstringDirectorIds(ref pageContent, key.StartValue, key.EndValue);
