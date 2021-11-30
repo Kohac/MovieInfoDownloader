@@ -34,10 +34,10 @@
     <None Update="log4net.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="Services\HtmlSearchMovieKeys.json">
+    <None Update="Services\Data\HtmlSearchMovieKeys.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="Services\HtmlSearchPersonKeys.json">
+    <None Update="Services\Data\HtmlSearchPersonKeys.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>

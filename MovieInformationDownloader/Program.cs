@@ -9,12 +9,23 @@ class Program
     private static readonly PairModelAndEntity _pairModelAndEntity = new();
     static void Main(string[] args)
     {
-        //long actualMovieId = 6014;
-        //Console.WriteLine($"Application starting with movie id: {actualMovieId}");
-        //MovieDto movieDto = DownloadAndReturnMovieInfo(ref actualMovieId);
-        //Movie movieEntity = _pairModelAndEntity.GetMovieEntityFromModel(movieDto);
-        //_movieRepository.InsertMovie(movieEntity);
-        //Console.WriteLine($"Movie with id: {actualMovieId} was inserted to DB!");
+        //ConfigureLogs();
+        //for (int i = 15340; i < 17734; i++)
+        //{
+        //    long actualMovieId = i;
+        //    Console.WriteLine($"Application starting with movie id: {actualMovieId}");
+        //    MovieDto movieDto = DownloadAndReturnMovieInfo(ref actualMovieId);
+        //    Movie movieEntity = _pairModelAndEntity.GetMovieEntityFromModel(movieDto);
+        //    if (_movieRepository.CheckIfMovieIdExists(actualMovieId))
+        //    {
+        //        _movieRepository.UpdateMovie(movieEntity);
+        //    }
+        //    else
+        //    {
+        //        _movieRepository.InsertMovie(movieEntity);
+        //    }
+        //    _movieRepository.UpdateMovie(movieEntity);
+        //}
         RunApp(args);
     }
     private static void RunApp(string[] args)
@@ -38,7 +49,6 @@ class Program
                     PersonDto personDto = DownloadAndReturnPersonInfo(personId);
                     Person person = _pairModelAndEntity.GetPersonEntityFromModel(personDto);
                     _personRepository.InsertPerson(person);
-                    Console.WriteLine($"Person with id: {personId} was inserted to DB!");
                 }
             }
 
@@ -52,7 +62,6 @@ class Program
                     MovieDto movieDto = DownloadAndReturnMovieInfo(ref actualMovieId);
                     Movie movieEntity = _pairModelAndEntity.GetMovieEntityFromModel(movieDto);
                     _movieRepository.InsertMovie(movieEntity);
-                    Console.WriteLine($"Movie with id: {actualMovieId} was inserted to DB!");
                 }
             }
             log.Info("Application End");
@@ -71,7 +80,7 @@ class Program
         try
         {
             Encoding encoding = CodePagesEncodingProvider.Instance.GetEncoding("Windows-1250");
-            var jsonConfigurationFile = File.ReadAllText(AppContext.BaseDirectory + "/Services/HtmlSearchMovieKeys.json", encoding);
+            var jsonConfigurationFile = File.ReadAllText(AppContext.BaseDirectory + "/Services/Data/HtmlSearchMovieKeys.json", encoding);
             var keys = JsonConvert.DeserializeObject<JsonMapperMovie>(jsonConfigurationFile);
             string pageContent = webDownloader.DownloadPageContentMovieHtml(movieId);
             while (pageContent == null)
@@ -104,7 +113,7 @@ class Program
         try
         {
             Encoding encoding = CodePagesEncodingProvider.Instance.GetEncoding("Windows-1250");
-            var jsonConfigurationFile = File.ReadAllText(AppContext.BaseDirectory + "/Services/HtmlSearchPersonKeys.json", encoding);
+            var jsonConfigurationFile = File.ReadAllText(AppContext.BaseDirectory + "/Services/data/HtmlSearchPersonKeys.json", encoding);
             var keys = JsonConvert.DeserializeObject<JsonMapperPerson>(jsonConfigurationFile);
             string pageContent = webDownloader.DownloadPageContentPersonHtml(personId);
             PersonDto personInfo = webHandler.GetPersonInfo(personId, pageContent, keys);

@@ -26,6 +26,7 @@ internal class PersonRepository : AbstractPerson
         {
             _context.People.Add(person);
             Save();
+            Console.WriteLine($"Person with id: {person.PersonId} was inserted to DB!");
         }
         catch (Exception ex)
         {
