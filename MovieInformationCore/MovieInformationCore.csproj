@@ -1,9 +1,9 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <OutputType>Exe</OutputType>
     <TargetFramework>net6.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
+    <!--<Nullable>disable</Nullable>-->
   </PropertyGroup>
 
   <ItemGroup>
@@ -15,21 +15,19 @@
     </PackageReference>
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
   </ItemGroup>
-	
-    <ItemGroup>
+
+	<ItemGroup>
 		<Using Include="System" />
 		<Using Include="Newtonsoft.Json" />
 		<Using Include="System.Text" />
-		<Using Include="MovieInformationDownloader.services" />
 		<Using Include="MovieInformationDownloader.Models" />
-	    <Using Include="MovieInformationDownloader.DataMapper" />
-		<Using Include="log4net.Config" />
+		<Using Include="MovieInformationDownloader.DataMapper" />
 		<Using Include="log4net" />
 		<Using Include="MovieInformationDownloader.Utilities" />
 		<Using Include="MovieInformationDownloader.Entities" />
 		<Using Include="MovieInformationDownloader.Utilities.ModelAndEntity" />
-    </ItemGroup>
-
+	</ItemGroup>
+	
   <ItemGroup>
     <None Update="log4net.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

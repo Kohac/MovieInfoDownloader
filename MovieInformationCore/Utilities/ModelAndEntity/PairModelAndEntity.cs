@@ -1,5 +1,5 @@
 ﻿namespace MovieInformationDownloader.Utilities.ModelAndEntity;
-internal class PairModelAndEntity
+public class PairModelAndEntity
 {
     public Movie GetMovieEntityFromModel(MovieDto modelMovie)
     {

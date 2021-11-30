@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MovieInformationDownloader.Services;
 
-internal abstract class AbstractPerson
+public abstract class AbstractPerson
 {
     public abstract long GetPersonId();
     public abstract void InsertPerson(Person person);

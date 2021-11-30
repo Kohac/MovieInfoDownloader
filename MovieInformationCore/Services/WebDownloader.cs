@@ -1,4 +1,4 @@
-﻿namespace MovieInformationDownloader.services;
+﻿namespace MovieInformationDownloader.Services;
 public class WebDownloader
 {
     public static readonly ILog log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);

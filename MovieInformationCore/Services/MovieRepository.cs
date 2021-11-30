@@ -1,4 +1,5 @@
-﻿using MovieInformationDownloader.Context;
+﻿using log4net;
+using MovieInformationDownloader.Context;
 using MovieInformationDownloader.Entities;
 
 namespace MovieInformationDownloader.Services;

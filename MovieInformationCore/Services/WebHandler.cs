@@ -1,4 +1,4 @@
-﻿namespace MovieInformationDownloader.services;
+﻿namespace MovieInformationDownloader.Services;
 public class WebHandler
 {
     public readonly HtmlHandler htmlHandler = new ();

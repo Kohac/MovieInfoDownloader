@@ -2,7 +2,7 @@
 
 namespace MovieInformationDownloader.Services;
 
-internal class PersonRepository : AbstractPerson
+public class PersonRepository : AbstractPerson
 {
     private static readonly ILog log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
     private readonly MovieInfoContext _context = new();

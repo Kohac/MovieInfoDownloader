@@ -1,4 +1,6 @@
-﻿using MovieInformationDownloader.Services;
+﻿using log4net.Config;
+using MovieInformationDownloader.Services;
+
 
 namespace MovieInformationDownloader;
 class Program
